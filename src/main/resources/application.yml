@@ -1,2 +1,21 @@
 server:
   port: 1988
+
+spring:
+  application:
+    name: springboot
+  datasource:
+    url: jdbc:mysql://rm-bp17330s3si44dsz7bo.mysql.rds.aliyuncs.com:3306/yanggy
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: Ygy250725
+    initialSize: 100
+    minIdle: 1
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    type: com.alibaba.druid.pool.DruidDataSource
+  jpa:
+    hibernate:
+      ddl-auto: update

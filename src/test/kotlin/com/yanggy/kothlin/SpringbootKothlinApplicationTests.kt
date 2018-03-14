@@ -1,4 +1,4 @@
-package com.yanggy.kothlin.springboot_kothlin
+package com.yanggy.kothlin
 
 import org.junit.Test
 import org.junit.runner.RunWith
