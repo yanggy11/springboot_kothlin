@@ -1,0 +1,15 @@
+package com.yanggy.kothlin.utils
+
+/**
+ * Created by derrick.yang on 3/16/18.
+ */
+interface Constants {
+    companion object {
+        val SUCCESS_STATUS = "1"
+        val ERROR_STATUS = "0"
+
+        val SUCCESS_MSG = "请求成功！"
+
+        val DEFAULT_USER_ID = "DEFAULt ID"
+    }
+}

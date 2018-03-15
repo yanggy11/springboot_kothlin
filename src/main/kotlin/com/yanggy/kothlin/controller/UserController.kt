@@ -22,7 +22,7 @@ open class UserController {
     lateinit var userService : UsersService
 
     @PostMapping(value = "/addUser")
-    fun save(@RequestBody user : Users) : ResponseEntity<Users>? {
+    fun save(@RequestBody user : Users) : ResponseEntity<Any>? {
 
         return userService.addUser(user)
     }

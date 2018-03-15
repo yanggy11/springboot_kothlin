@@ -16,8 +16,8 @@ open class ResponseEntity<T> : Serializable{
      * initialize member properties
      */
     init {
-        this.status = "1"
-        msg = "请求成功！"
+        this.status = Constants.SUCCESS_STATUS
+        msg = Constants.SUCCESS_MSG
         this.data = null
     }
 }
