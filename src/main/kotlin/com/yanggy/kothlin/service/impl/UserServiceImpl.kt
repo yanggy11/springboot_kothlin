@@ -6,12 +6,15 @@ import com.yanggy.kothlin.service.UsersService
 import com.yanggy.kothlin.utils.ResponseEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
+import javax.transaction.Transactional
 
 /**
  * Created by yangguiyun on 2018/3/15.
  */
 
 @Service("userService")
+@Transactional
 class UserServiceImpl : UsersService{
 
     @Autowired
@@ -26,16 +29,33 @@ class UserServiceImpl : UsersService{
     }
 
     override fun updateUser(user : Users) : ResponseEntity<Users>? {
-        userRepository.updateUserById(user.id,  user.name)
-        return null
+        var res : ResponseEntity<Users> = ResponseEntity()
+
+        var users : Optional<Users> = userRepository.findById(user.id)
+        if(users.isPresent) {
+            users.get().name = user.name
+        }else {
+            res.msg = "用户不存在"
+            res.status = "0"
+        }
+
+        return res
     }
 
     override fun deleteUser(user : Users)  : ResponseEntity<Any>? {
-        return null
+        //TODO business logic
+
+        userRepository.deleteById(user.id)
+
+        return ResponseEntity()
     }
 
     override fun getUsersById(user : Users) : ResponseEntity<Users>? {
-        return null
+        var res : ResponseEntity<Users> = ResponseEntity()
+
+        res.data = userRepository.findById(user.id).orElse(Users("default id"))
+
+        return res
     }
 
     override fun getUsersList(user : Users) : ResponseEntity<Array<Users>>? {
