@@ -4,6 +4,7 @@ import com.yanggy.kothlin.model.Users
 import com.yanggy.kothlin.repository.UserRepository
 import com.yanggy.kothlin.service.UsersService
 import com.yanggy.kothlin.utils.ResponseEntity
+import com.yanggy.kothlin.utils.ResponseEntityBuilder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -20,23 +21,24 @@ open class UserServiceImpl : UsersService{
     @Autowired
     lateinit private var userRepository : UserRepository
 
-    override fun addUser(user : Users) : ResponseEntity<Users>? {
-        var res : ResponseEntity<Users> = ResponseEntity()
+    override fun addUser(user : Users) : ResponseEntity<Any>? {
+        var res : ResponseEntity<Any> = ResponseEntity()
 
         res.data = userRepository.save(user)
 
-        return res
+        return ResponseEntityBuilder.buildNormalResponse(userRepository.save(user))
     }
 
-    override fun updateUser(user : Users) : ResponseEntity<Users>? {
-        var res : ResponseEntity<Users> = ResponseEntity()
+    override fun updateUser(user : Users) : ResponseEntity<Any>? {
+        var res : ResponseEntity<Any>? = null
 
         var users : Optional<Users> = userRepository.findById(user.id)
         if(users.isPresent) {
             users.get().name = user.name
+
+            res = ResponseEntityBuilder.buildNormalResponse(users.get())
         }else {
-            res.msg = "用户不存在"
-            res.status = "0"
+            res = ResponseEntityBuilder.buildErrorResponse("0", "")
         }
 
         return res
@@ -47,18 +49,15 @@ open class UserServiceImpl : UsersService{
 
         userRepository.deleteById(user.id)
 
-        return ResponseEntity()
+        return ResponseEntityBuilder.buildNormalResponse(null)
     }
 
-    override fun getUsersById(user : Users) : ResponseEntity<Users>? {
-        var res : ResponseEntity<Users> = ResponseEntity()
+    override fun getUsersById(user : Users) : ResponseEntity<Any>? {
 
-        res.data = userRepository.findById(user.id).orElse(Users("default id"))
-
-        return res
+        return ResponseEntityBuilder.buildNormalResponse(userRepository.findById(user.id).orElse(Users("default id")))
     }
 
-    override fun getUsersList(user : Users) : ResponseEntity<Array<Users>>? {
-        return null
+    override fun getUsersList(user : Users) : ResponseEntity<Any>? {
+        return ResponseEntityBuilder.buildNormalResponse(userRepository.findAll())
     }
 }

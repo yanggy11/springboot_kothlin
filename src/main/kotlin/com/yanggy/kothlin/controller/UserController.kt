@@ -4,6 +4,7 @@ import com.yanggy.kothlin.utils.ResponseEntity
 import com.yanggy.kothlin.model.Users
 import com.yanggy.kothlin.repository.UserRepository
 import com.yanggy.kothlin.service.UsersService
+import com.yanggy.kothlin.utils.ResponseEntityBuilder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -21,13 +22,8 @@ open class UserController {
     lateinit var userService : UsersService
 
     @PostMapping(value = "/addUser")
-    fun save(@RequestBody user : Users) : ResponseEntity<Users> {
+    fun save(@RequestBody user : Users) : ResponseEntity<Users>? {
 
-        var res : ResponseEntity<Users> = ResponseEntity()
-        userService.updateUser(user)
-        res.status = "1"
-        res.printMessage()
-
-        return res
+        return userService.addUser(user)
     }
 }
