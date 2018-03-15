@@ -51,33 +51,59 @@
 
 2. 其次，引入kothlin maven插件
 ```
-<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>kotlin-maven-plugin</artifactId>
-				<groupId>org.jetbrains.kotlin</groupId>
-				<configuration>
-					<args>
-						<arg>-Xjsr305=strict</arg>
-					</args>
-					<compilerPlugins>
-						<plugin>spring</plugin>
-					</compilerPlugins>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.jetbrains.kotlin</groupId>
-						<artifactId>kotlin-maven-allopen</artifactId>
-						<version>${kotlin.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-		</plugins>
+        <build>
+    		<sourceDirectory>src/main/kotlin</sourceDirectory>
+    		<testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    		<plugins>
+
+    			<plugin>
+    				<artifactId>kotlin-maven-plugin</artifactId>
+                    <version>${kotlin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>compile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>test-compile</id>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>test-compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <groupId>org.jetbrains.kotlin</groupId>
+    				<configuration>
+    					<compilerPlugins>
+    						<!-- Or "spring" for the Spring support -->
+    						<plugin>all-open</plugin>
+    						<plugin>spring</plugin>
+    						<plugin>jpa</plugin>
+    					</compilerPlugins>
+
+    					<pluginOptions>
+    						<option>all-open:annotation=com.my.Annotation</option>
+    						<option>all-open:annotation=com.their.AnotherAnnotation</option>
+    					</pluginOptions>
+    				</configuration>
+    				<dependencies>
+    					<dependency>
+    						<groupId>org.jetbrains.kotlin</groupId>
+    						<artifactId>kotlin-maven-allopen</artifactId>
+    						<version>${kotlin.version}</version>
+    					</dependency>
+    				</dependencies>
+    			</plugin>
+
+    			<plugin>
+    				<groupId>org.springframework.boot</groupId>
+    				<artifactId>spring-boot-maven-plugin</artifactId>
+    			</plugin>
+    		</plugins>
+    	</build>
 ```
 
 3.创建主类SpringBootKothlinApplication.kit
@@ -100,7 +126,7 @@ fun main(args: Array<String>) {
 
 # 整合spring-data-jpa
 
-1.在pom中添加mysql驱动、数据源、pa依赖
+1.在pom中添加mysql驱动、数据源、jpa依赖
 ```
 <dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -142,6 +168,91 @@ spring:
     hibernate:
       ddl-auto: update
 ```
-至此，jpa整合完毕。下面进行简单的业务开发
+至此，jpa整合完毕。
 
-创建model
+
+下面进行简单的业务开发
+
+1. 创建model
+
+```
+import org.hibernate.annotations.GenericGenerator
+import java.io.Serializable
+import javax.persistence.*
+
+@Entity
+@Table(name = "k_users")
+data class Users(  @Id
+                   @GenericGenerator(name="systemUUID",strategy="uuid")
+                   @GeneratedValue(generator="systemUUID")
+                   @Column(name = "id", insertable = true, updatable = true, nullable = false)
+                   var id: String?) : Serializable{
+
+    @Column(name="name")
+    var name: String
+
+    @Column(name="age")
+    var age : Int
+
+    init {
+        this.name = ""
+        this.age = 0
+    }
+    //default constructor
+    constructor() : this("") {
+
+    }
+}
+```
+
+2. 创建repository
+```import org.hibernate.annotations.GenericGenerator
+   import java.io.Serializable
+   import javax.persistence.*
+
+   /**
+    * Created by yangguiyun on 2018/3/14.
+    */
+
+   @Entity
+   @Table(name = "k_users")
+   data class Users(  @Id
+                      @GenericGenerator(name="systemUUID",strategy="uuid")
+                      @GeneratedValue(generator="systemUUID")
+                      @Column(name = "id", insertable = true, updatable = true, nullable = false)
+                      var id: String?) : Serializable{
+
+       @Column(name="name")
+       var name: String
+
+       @Column(name="age")
+       var age : Int
+
+       init {
+           this.name = ""
+           this.age = 0
+       }
+       //default constructor
+       constructor() : this("") {
+
+       }
+   }
+
+```
+3. 创建controller
+```
+@RestController
+@RequestMapping("/user")
+open class UserController {
+    @Autowired
+    lateinit  var userRepository : UserRepository
+
+    @PostMapping(value = "/addUser")
+    fun save(@RequestBody user : Users) : Users {
+
+        return userRepository.save(user)
+    }
+}
+```
+
+启动项，利用postman测试项目是否启动成功。
