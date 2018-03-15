@@ -1,6 +1,4 @@
-package com.yanggy.kothlin
-
-import lombok.Data
+package com.yanggy.kothlin.utils
 
 /**
  * Created by yangguiyun on 2018/3/14.
@@ -9,10 +7,12 @@ import lombok.Data
 open class ResponseEntity<T> {
     var status : String
     var msg : String
+    var data : T?
 
     init {
-        this.status = ""
+        this.status = "1"
         msg = "请求成功！"
+        this.data = null
     }
 
     fun printMessage() {

@@ -1,0 +1,19 @@
+package com.yanggy.kothlin.service
+
+import com.yanggy.kothlin.model.Users
+import com.yanggy.kothlin.utils.ResponseEntity
+
+/**
+ * Created by yangguiyun on 2018/3/15.
+ */
+interface UsersService {
+    fun addUser(user : Users) : ResponseEntity<Users>?
+
+    fun updateUser(user : Users) : ResponseEntity<Users>?
+
+    fun deleteUser(user : Users)  : ResponseEntity<Any>?
+
+    fun getUsersById(user : Users) : ResponseEntity<Users>?
+
+    fun getUsersList(user : Users) : ResponseEntity<Array<Users>>?
+}

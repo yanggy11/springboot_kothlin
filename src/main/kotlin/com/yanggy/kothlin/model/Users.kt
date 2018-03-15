@@ -10,16 +10,20 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "k_users")
-open class Users : Serializable{
-    @Id
-    @GenericGenerator(name="systemUUID",strategy="uuid2")
-    @GeneratedValue(generator="systemUUID")
-    @Column(name = "id", insertable = true, updatable = true, nullable = false)
-    open var id: String = ""
+data class Users(  @Id
+                   @GenericGenerator(name="systemUUID",strategy="uuid")
+                   @GeneratedValue(generator="systemUUID")
+                   @Column(name = "id", insertable = true, updatable = true, nullable = false)
+                   var id: String?) : Serializable{
 
     @Column(name="name")
-    open var name: String = ""
+    var name: String
 
     @Column(name="age")
-    var age : Int = 0
+    var age : Int
+
+    init {
+        this.name = ""
+        this.age = 0
+    }
 }
