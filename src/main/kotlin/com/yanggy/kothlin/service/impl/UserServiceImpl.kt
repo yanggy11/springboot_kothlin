@@ -39,7 +39,7 @@ open class UserServiceImpl : UsersService{
 
             res = ResponseEntityBuilder.buildNormalResponse(users.get())
         }else {
-            res = ResponseEntityBuilder.buildErrorResponse("0", "")
+            return ResponseEntityBuilder.buildErrorResponse(Constants.ERROR_STATUS, "")
         }
 
         return res
@@ -59,6 +59,6 @@ open class UserServiceImpl : UsersService{
     }
 
     override fun getUsersList(user : Users) : ResponseEntity<Any>? {
-        return ResponseEntityBuilder.buildNormalResponse(userRepository.findAll())
+        return ResponseEntityBuilder.buildNormalResponse(userRepository.findByName(user.name))
     }
 }

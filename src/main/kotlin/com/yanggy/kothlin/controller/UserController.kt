@@ -1,10 +1,8 @@
 package com.yanggy.kothlin.controller
 
-import com.yanggy.kothlin.utils.ResponseEntity
 import com.yanggy.kothlin.model.Users
-import com.yanggy.kothlin.repository.UserRepository
 import com.yanggy.kothlin.service.UsersService
-import com.yanggy.kothlin.utils.ResponseEntityBuilder
+import com.yanggy.kothlin.utils.ResponseEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -23,7 +21,26 @@ open class UserController {
 
     @PostMapping(value = "/addUser")
     fun save(@RequestBody user : Users) : ResponseEntity<Any>? {
-
         return userService.addUser(user)
+    }
+
+    @PostMapping(value = "/updateUser")
+    fun updateUser(@RequestBody user : Users) : ResponseEntity<Any>? {
+        return userService.updateUser(user)
+    }
+
+    @PostMapping(value = "/deleteUser")
+    fun deleteUser(@RequestBody user : Users)  : ResponseEntity<Any>? {
+        return userService.deleteUser(user)
+    }
+
+    @PostMapping(value = "/getUsersById")
+    fun getUsersById(@RequestBody user : Users) : ResponseEntity<Any>? {
+        return userService.getUsersById(user)
+    }
+
+    @PostMapping(value = "/getUsersList")
+    fun getUsersList(@RequestBody user : Users) : ResponseEntity<Any>? {
+        return userService.getUsersList(user)
     }
 }

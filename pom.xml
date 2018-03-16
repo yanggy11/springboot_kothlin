@@ -112,7 +112,6 @@
 						<!-- Or "spring" for the Spring support -->
 						<plugin>all-open</plugin>
 						<plugin>spring</plugin>
-						<plugin>jpa</plugin>
 					</compilerPlugins>
 
 					<pluginOptions>
