@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @SpringBootApplication
 @EnableTransactionManagement
-open class SpringbootKothlinApplication
+class SpringbootKothlinApplication
 
 fun main(args: Array<String>) {
     SpringApplication.run(SpringbootKothlinApplication::class.javaObjectType, *args)
