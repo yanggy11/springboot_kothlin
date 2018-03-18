@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 
 /**
  * @author derrick.yang
- *
  */
 @SpringBootApplication
 @EnableTransactionManagement
