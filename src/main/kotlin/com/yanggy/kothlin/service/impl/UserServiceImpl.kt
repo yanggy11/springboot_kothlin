@@ -22,8 +22,8 @@ open class UserServiceImpl : UsersService{
     @Autowired
     lateinit private var userRepository : UserRepository
 
-    override fun addUser(user : Users) : ResponseEntity<Any>? {
-        var res : ResponseEntity<Any> = ResponseEntity()
+    override fun addUser(user : Users) : ResponseEntity<Users>? {
+        var res : ResponseEntity<Users> = ResponseEntity()
 
         res.data = userRepository.save(user)
 

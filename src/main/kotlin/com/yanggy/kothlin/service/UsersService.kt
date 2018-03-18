@@ -7,7 +7,7 @@ import com.yanggy.kothlin.utils.ResponseEntity
  * Created by yangguiyun on 2018/3/15.
  */
 interface UsersService {
-    fun addUser(user : Users) : ResponseEntity<Any>?
+    fun addUser(user : Users) : ResponseEntity<Users>?
 
     fun updateUser(user : Users) : ResponseEntity<Any>?
 

@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/user")
-open class UserController {
+class UserController {
     @Autowired
     lateinit var userService : UsersService
 
     @PostMapping(value = "/addUser")
-    fun save(@RequestBody user : Users) : ResponseEntity<Any>? {
+    fun save(@RequestBody user : Users) : ResponseEntity<Users>? {
         return userService.addUser(user)
     }
 
