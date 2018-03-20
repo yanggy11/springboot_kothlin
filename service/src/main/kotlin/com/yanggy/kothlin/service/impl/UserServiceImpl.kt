@@ -24,10 +24,6 @@ open class UserServiceImpl : UsersService {
     lateinit private var userRepository : UserRepository
 
     override fun addUser(user : Users) : ResponseEntity<Users>? {
-        var res : ResponseEntity<Users> = ResponseEntity()
-
-        res.data = userRepository.save(user)
-
         return ResponseEntityBuilder.buildNormalResponse(userRepository.save(user))
     }
 
@@ -56,7 +52,7 @@ open class UserServiceImpl : UsersService {
 
     override fun getUsersById(user : Users) : ResponseEntity<Any>? {
 
-        return ResponseEntityBuilder.buildNormalResponse(userRepository.findById(user.id).orElse(Users(Constants.Companion.DEFAULT_USER_ID)))
+        return ResponseEntityBuilder.buildNormalResponse(userRepository.findById(user.id).orElse(Users()))
     }
 
     override fun getUsersList(user : Users) : ResponseEntity<Any>? {
