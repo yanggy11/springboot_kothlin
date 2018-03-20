@@ -26,8 +26,4 @@ data class Users(  @Id
         this.name = ""
         this.age = 0
     }
-    //default constructor
-    constructor() : this("") {
-
-    }
 }
