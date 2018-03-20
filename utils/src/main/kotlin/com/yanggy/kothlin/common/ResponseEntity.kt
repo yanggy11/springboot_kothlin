@@ -1,4 +1,4 @@
-package com.yanggy.kothlin.utils
+package com.yanggy.kothlin.common
 
 import java.io.Serializable
 
@@ -6,7 +6,7 @@ import java.io.Serializable
  * Created by yangguiyun on 2018/3/14.
  */
 
-open class ResponseEntity<T> : Serializable{
+open class ResponseEntity<T> : Serializable {
 
     var status : String
     var msg : String

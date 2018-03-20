@@ -2,7 +2,7 @@ package com.yanggy.kothlin.controller
 
 import com.yanggy.kothlin.model.Users
 import com.yanggy.kothlin.service.UsersService
-import com.yanggy.kothlin.utils.ResponseEntity
+import com.yanggy.kothlin.common.ResponseEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

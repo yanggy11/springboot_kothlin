@@ -3,9 +3,9 @@ package com.yanggy.kothlin.service.impl
 import com.yanggy.kothlin.model.Users
 import com.yanggy.kothlin.repository.UserRepository
 import com.yanggy.kothlin.service.UsersService
-import com.yanggy.kothlin.utils.ResponseEntity
-import com.yanggy.kothlin.utils.ResponseEntityBuilder
-import com.yanggy.kothlin.utils.Constants
+import com.yanggy.kothlin.common.ResponseEntity
+import com.yanggy.kothlin.common.ResponseEntityBuilder
+import com.yanggy.kothlin.common.Constants
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -18,7 +18,7 @@ import javax.transaction.Transactional
 
 @Service("userService")
 @Transactional
-class UserServiceImpl : UsersService{
+open class UserServiceImpl : UsersService {
 
     @Autowired
     lateinit private var userRepository : UserRepository
@@ -56,7 +56,7 @@ class UserServiceImpl : UsersService{
 
     override fun getUsersById(user : Users) : ResponseEntity<Any>? {
 
-        return ResponseEntityBuilder.buildNormalResponse(userRepository.findById(user.id).orElse(Users(Constants.DEFAULT_USER_ID)))
+        return ResponseEntityBuilder.buildNormalResponse(userRepository.findById(user.id).orElse(Users(Constants.Companion.DEFAULT_USER_ID)))
     }
 
     override fun getUsersList(user : Users) : ResponseEntity<Any>? {

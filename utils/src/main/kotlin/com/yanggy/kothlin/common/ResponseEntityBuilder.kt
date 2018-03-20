@@ -1,4 +1,4 @@
-package com.yanggy.kothlin.utils
+package com.yanggy.kothlin.common
 
 /**
  * Created by derrick.yang on 3/15/18.
