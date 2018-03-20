@@ -20,4 +20,19 @@ open class ResponseEntity<T> : Serializable {
         msg = Constants.SUCCESS_MSG
         this.data = null
     }
+
+    constructor(data : T?) {
+        this.data = data
+    }
+
+    constructor(status : String, msg : String) {
+        this.msg = msg
+        this.status = status
+    }
+
+    constructor(status : String, msg : String, data : T?) {
+        this.msg = msg
+        this.status = status
+        this.data = data
+    }
 }

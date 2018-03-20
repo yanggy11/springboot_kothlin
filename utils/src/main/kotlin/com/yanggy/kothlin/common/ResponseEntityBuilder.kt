@@ -9,21 +9,11 @@ open class ResponseEntityBuilder {
      */
     companion object {
         fun<T> buildNormalResponse(data : T?) : ResponseEntity<T> {
-            var res : ResponseEntity<T> = ResponseEntity()
-
-            res.data = data
-
-            return res
+            return ResponseEntity(data)
         }
 
         fun<T> buildErrorResponse(msg : String, status : String) : ResponseEntity<T> {
-            var res : ResponseEntity<T> = ResponseEntity()
-
-            res.msg = msg
-
-            res.status = status
-
-            return res
+            return ResponseEntity(status, msg)
         }
     }
 }
